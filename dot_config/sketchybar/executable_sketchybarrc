@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+##
+# Variables
+#
+ITEM_DIR="$HOME/.config/sketchybar/items"
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+DISPLAY_COUNT="$(yabai -m query --displays | jq -r 'length')"
+
+##
+# Colors
+#
+source "$HOME/.config/sketchybar/colors.sh"
+transparent_color="$TRANSPARENT"
+bar_bg_color="$BASE"
+bar_border_color="$TRANSPARENT"
+label_color="$TEXT"
+icon_color="$TEXT"
+hl_icon_color="$GREEN"
+current_app_bg_color="$BLUE"
+current_app_color="$ROSEWATER"
+right_icon_color="$CRUST"
+music_highlight="$GREEN"
+cpu_highlight="$SAPPHIRE"
+memory_highlight="$RED"
+time_highlight="$MAUVE"
+disk_highlight="$YELLOW"
+
+##
+# Fonts
+#
+FONT="SF Pro"
+NERD_FONT="Liga SFMono Nerd Font"
+SPECIAL_FONT="OperatorMono Nerd Font"
+
+############## BAR ##############
+sketchybar --bar \
+	height=36 \
+	y_offset=6 \
+	blur_radius=0 \
+	position=top \
+	padding_left=12 \
+	padding_right=12 \
+	margin=0 \
+	corner_radius=0 \
+	color=$transparent_color \
+	shadow=off
+
+############# DEFAULTS #############
+sketchybar --default \
+	icon.color=$icon_color \
+	icon.font="$NERD_FONT:Bold:16.0" \
+	icon.highlight_color=$hl_icon_color \
+	icon.padding_left=6 \
+	icon.padding_right=6 \
+	label.color=$label_color \
+	label.font="$FONT:Semibold:14.0" \
+	label.padding_left=6 \
+	label.padding_right=6 \
+	background.height=24 \
+	background.padding_right=4 \
+	background.padding_left=4 \
+	background.corner_radius=5 \
+	updates=when_shown
+
+############# LEFT ITEMS #############
+##
+# Display 1
+#
+source "$ITEM_DIR/spaces.sh"
+
+##
+# TODO: Display 2: Implement later
+#
+
+############# CENTER ITEMS #############
+source "$ITEM_DIR/spotify.sh" # spotify widget
+
+############# RIGHT ITEMS #############
+source "$ITEM_DIR/time.sh"
+source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/memory.sh"
+source "$ITEM_DIR/hdd.sh"
+
+# Forcing all item scripts to run (never do this outside of sketchybarrc)
+sketchybar --update
+
+echo "sketchybar configuation loaded.."

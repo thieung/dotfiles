@@ -1,0 +1,40 @@
+scan_timeout = 1000
+command_timeout = 1000
+right_format = "$cmd_duration"
+
+[cmd_duration]
+format = "[ $duration]($style)"
+style = "bold #586068"
+
+[character]
+success_symbol = "[❯](bold #FF69CC)"
+error_symbol = "[❯](bold #FF4566)"
+vicmd_symbol = "[❮](bold #FF69CC)"
+
+[directory]
+truncation_length = 1
+style = "bold bright-cyan"
+
+[time]
+time_format = "%I:%M %p"
+
+# Change default symbol for some programming languages
+# Since default symbol is really ugly
+[ruby]
+symbol = " "
+style = "fg:red"
+[golang]
+symbol = " "
+style = "fg:blue"
+[nodejs]
+style = "fg:green"
+[git_commit]
+disabled = true
+[git_status]
+disabled = true
+[battery]
+disabled = true
+[gcloud]
+disabled = true
+[aws]
+disabled = true

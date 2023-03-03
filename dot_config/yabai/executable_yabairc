@@ -1,0 +1,117 @@
+#!/usr/bin/env sh
+
+# Unload the macOS WindowManager process
+launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist >/dev/null 2>&1 &
+
+# See: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#macos-big-sur---automatically-load-scripting-addition-on-startup
+sudo yabai --load-sa
+
+# Signal hooks
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=display_added action="sleep 1 && $HOME/.config/yabai/apply_labels.sh"
+yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yabai/apply_labels.sh"
+yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+
+# Setup spaces with label
+$HOME/.config/yabai/apply_labels.sh
+
+# Exclude problematic apps from being managed:
+yabai -m rule --add app="^(LuLu|Vimac|Calculator|Software Update|Dictionary|VLC|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice)$" manage=off
+yabai -m rule --add app="^(iStat Menus|Stats|FaceTime|App Store|Steam|Alfred|Activity Monitor)$" manage=off
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+yabai -m rule --add label="AppCleaner" app="^AppCleaner$" manage=off
+yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
+
+# Config rules
+yabai -m config external_bar all:39:0 \
+	window_border on \
+	mouse_follows_focus off \
+	focus_follows_mouse autofocus \
+	window_placement second_child \
+	window_topmost off \
+	window_shadow float \
+	window_opacity on \
+	window_opacity_duration 0.15 \
+	active_window_opacity 1.0 \
+	normal_window_opacity 0.95 \
+	window_border_width 2 \
+	window_border_radius 11 \
+	window_animation_duration 0.15 \
+	active_window_border_color 0xff7793d1 \
+	normal_window_border_color 0xff5e6798 \
+	insert_feedback_color 0xff7793d1 \
+	split_ratio 0.50 \
+	auto_balance off \
+	mouse_action1 move \
+	mouse_action2 resize \
+	mouse_drop_action swap \
+	layout bsp \
+	top_padding 20 \
+	bottom_padding 10 \
+	left_padding 10 \
+	right_padding 10 \
+	window_gap 8
+
+# Rules for specific apps to launch and be managed by yabai
+yabai -m rule --add app="^Calendar$" space="mail"
+yabai -m rule --add app="^Mail$" space="mail"
+yabai -m rule --add app="^Microsoft Outlook$" title!="^(Calendar|Inbox)" space="mail"
+
+yabai -m rule --add app="^Discord$" space="chat"
+yabai -m rule --add app="^Messenger$" space="chat"
+yabai -m rule --add app="^Messages$" space="chat"
+yabai -m rule --add app="^Microsoft Teams$" space="chat"
+yabai -m rule --add app="^Skype$" space="chat"
+yabai -m rule --add app="^Slack$" space="chat"
+yabai -m rule --add app="^Telegram$" space="chat"
+yabai -m rule --add app="^Zalo$" space="chat"
+yabai -m rule --add app="^zoom.us$" space="chat"
+
+yabai -m rule --add app="^Brave Browser$" space="browser"
+yabai -m rule --add app="^Firefox Developer Edition$" space="browser"
+yabai -m rule --add app="^Firefox$" space="browser"
+yabai -m rule --add app="^Google Chrome$" space="browser"
+yabai -m rule --add app="^Microsoft Edge$" space="browser"
+yabai -m rule --add app="^Min$" space="browser"
+yabai -m rule --add app="^Safari$" space="browser"
+yabai -m rule --add app="^Vivaldi$" space="browser"
+
+yabai -m rule --add app="^Alacritty$" space="terminal"
+yabai -m rule --add app="^Insomnia" space="terminal"
+yabai -m rule --add app="^kitty$" space="terminal"
+yabai -m rule --add app="^Wezterm$" space="terminal"
+
+yabai -m rule --add app="^Postman$" space="tools"
+yabai -m rule --add app="^Sublime Text$" space="tools"
+yabai -m rule --add app="^Visual Studio Code$" space="tools"
+yabai -m rule --add app="^XCode$" space="tools"
+yabai -m rule --add app="^Evernote$" space="tools"
+yabai -m rule --add app="^Notes$" space="tools"
+yabai -m rule --add app="^Obsidian$" space="tools"
+yabai -m rule --add app="^Reminders$" space="tools"
+
+yabai -m rule --add app="^Music$" space="tools"
+yabai -m rule --add app="^Spotify$" space="tools"
+yabai -m rule --add app="^VOX$" space="tools"
+yabai -m rule --add app="^VLC$" space="tools"
+
+yabai -m rule --add app="^Preview$" space="docs"
+yabai -m rule --add app="^Microsoft Word$" space="docs"
+yabai -m rule --add app="^Microsoft Excel$" space="docs"
+yabai -m rule --add app="^Numbers$" space="tools"
+yabai -m rule --add app="^Numi$" space="tools"
+
+yabai -m rule --add app="^CGoban$" space="tools"
+yabai -m rule --add app="^GoPanda2$" space="tools"
+yabai -m rule --add app="^Steam$" space="tools"
+yabai -m rule --add app="^Tygem$" space="tools"
+
+# start up sketchybar
+brew services restart felixkratz/formulae/sketchybar
+
+echo "yabai configuration loaded.."

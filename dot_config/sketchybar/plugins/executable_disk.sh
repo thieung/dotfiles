@@ -1,3 +1,6 @@
 #!/usr/bin/env sh
 
-sketchybar --set $NAME label="$(df -lh | grep /dev/disk1s2 | awk '{ printf ("%02.0f\n", $5) }')%"
+DISK=$(df -H | head -2 | tail -1 | awk '{print $4}')
+
+YELLOW=#ffff00
+sketchybar -m --set $NAME label="D:$DISK |" label.color=0xff${YELLOW:1}

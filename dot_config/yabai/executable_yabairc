@@ -9,13 +9,15 @@ sudo yabai --load-sa
 # Signal hooks
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
-yabai -m signal --add event=display_added action="sleep 1 && $HOME/.config/yabai/apply_labels.sh"
-yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yabai/apply_labels.sh"
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 
 # Setup spaces with label
-$HOME/.config/yabai/apply_labels.sh
+yabai -m space 1 --label Code
+yabai -m space 2 --label Web
+yabai -m space 3 --label Chat
+yabai -m space 4 --label Plan
+yabai -m space 5 --label Misc
 
 # Exclude problematic apps from being managed:
 yabai -m rule --add app="^(LuLu|Vimac|Calculator|Software Update|Dictionary|VLC|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice)$" manage=off
@@ -28,88 +30,77 @@ yabai -m rule --add label="System Preferences" app="^System Preferences$" manage
 yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
 
 # Config rules
-yabai -m config external_bar all:39:0 \
-	window_border on \
-	mouse_follows_focus off \
-	focus_follows_mouse autofocus \
-	window_placement second_child \
-	window_topmost off \
-	window_shadow float \
-	window_opacity on \
-	window_opacity_duration 0.15 \
-	active_window_opacity 1.0 \
-	normal_window_opacity 0.95 \
-	window_border_width 2 \
-	window_border_radius 11 \
-	window_animation_duration 0.15 \
-	active_window_border_color 0xff7793d1 \
-	normal_window_border_color 0xff5e6798 \
-	insert_feedback_color 0xff7793d1 \
-	split_ratio 0.50 \
-	auto_balance off \
-	mouse_action1 move \
-	mouse_action2 resize \
-	mouse_drop_action swap \
-	layout bsp \
-	top_padding 20 \
-	bottom_padding 10 \
-	left_padding 10 \
-	right_padding 10 \
-	window_gap 8
+yabai -m config window_shadow off
+yabai -m config window_border_blur off
+yabai -m config --space 5 layout bsp
+yabai -m config external_bar all:22:0
+yabai -m config \
+	layout stack \
+	top_padding 0   \
+	bottom_padding 0  \
+	left_padding 0 \
+	right_padding 0
 
 # Rules for specific apps to launch and be managed by yabai
-yabai -m rule --add app="^Calendar$" space="mail"
-yabai -m rule --add app="^Mail$" space="mail"
-yabai -m rule --add app="^Microsoft Outlook$" title!="^(Calendar|Inbox)" space="mail"
+# Code
+yabai -m rule --add app="^Alacritty$" space=1
+yabai -m rule --add app="^kitty$" space=1
+yabai -m rule --add app="^Wezterm$" space=1
+yabai -m rule --add app="^OrbStack$" space=1
+yabai -m rule --add app="^Sublime Text$" space=1
+yabai -m rule --add app="^Visual Studio Code$" space=1
 
-yabai -m rule --add app="^Discord$" space="chat"
-yabai -m rule --add app="^Messenger$" space="chat"
-yabai -m rule --add app="^Messages$" space="chat"
-yabai -m rule --add app="^Microsoft Teams$" space="chat"
-yabai -m rule --add app="^Skype$" space="chat"
-yabai -m rule --add app="^Slack$" space="chat"
-yabai -m rule --add app="^Telegram$" space="chat"
-yabai -m rule --add app="^Zalo$" space="chat"
-yabai -m rule --add app="^zoom.us$" space="chat"
+# Web
+yabai -m rule --add app="^Brave Browser$" space=2
+yabai -m rule --add app="^Firefox Developer Edition$" space=2
+yabai -m rule --add app="^Firefox$" space=2
+yabai -m rule --add app="^Google Chrome$" space=2
+yabai -m rule --add app="^Microsoft Edge$" space=2
+yabai -m rule --add app="^Min$" space=2
+yabai -m rule --add app="^Safari$" space=2
+yabai -m rule --add app="^Vivaldi$" space=2
 
-yabai -m rule --add app="^Brave Browser$" space="browser"
-yabai -m rule --add app="^Firefox Developer Edition$" space="browser"
-yabai -m rule --add app="^Firefox$" space="browser"
-yabai -m rule --add app="^Google Chrome$" space="browser"
-yabai -m rule --add app="^Microsoft Edge$" space="browser"
-yabai -m rule --add app="^Min$" space="browser"
-yabai -m rule --add app="^Safari$" space="browser"
-yabai -m rule --add app="^Vivaldi$" space="browser"
+# Social
+yabai -m rule --add app="^Discord$" space=3
+yabai -m rule --add app="^Messenger$" space=3
+yabai -m rule --add app="^Messages$" space=3
+yabai -m rule --add app="^Microsoft Teams" space=3
+yabai -m rule --add app="^Skype$" space=3
+yabai -m rule --add app="^Slack$" space=3
+yabai -m rule --add app="^Telegram$" space=3
+yabai -m rule --add app="^Zalo$" space=3
+yabai -m rule --add app="^zoom.us$" space=3
 
-yabai -m rule --add app="^Alacritty$" space="terminal"
-yabai -m rule --add app="^Insomnia" space="terminal"
-yabai -m rule --add app="^kitty$" space="terminal"
-yabai -m rule --add app="^Wezterm$" space="terminal"
+#Plan
+yabai -m rule --add app="^Calendar$" space=4
+yabai -m rule --add app="^Mail$" space=4
+yabai -m rule --add app="^Microsoft Outlook$" space=4
+yabai -m rule --add app="^Obsidian$" space=4
+yabai -m rule --add app="^Notion$" space=4
+yabai -m rule --add app="^Notion Calendar$" space=4
+yabai -m rule --add app="^Evernote$" space=4
 
-yabai -m rule --add app="^Postman$" space="tools"
-yabai -m rule --add app="^Sublime Text$" space="tools"
-yabai -m rule --add app="^Visual Studio Code$" space="tools"
-yabai -m rule --add app="^XCode$" space="tools"
-yabai -m rule --add app="^Evernote$" space="tools"
-yabai -m rule --add app="^Notes$" space="tools"
-yabai -m rule --add app="^Obsidian$" space="tools"
-yabai -m rule --add app="^Reminders$" space="tools"
+# Misc
+yabai -m rule --add app="^Postman$" space=5
+yabai -m rule --add app="^XCode$" space=5
+yabai -m rule --add app="^Notes$" space=5
+yabai -m rule --add app="^Reminders$" space=5
 
-yabai -m rule --add app="^Music$" space="tools"
-yabai -m rule --add app="^Spotify$" space="tools"
-yabai -m rule --add app="^VOX$" space="tools"
-yabai -m rule --add app="^VLC$" space="tools"
+yabai -m rule --add app="^Music$" space=5
+yabai -m rule --add app="^Spotify$" space=5
+yabai -m rule --add app="^VOX$" space=5
+yabai -m rule --add app="^VLC$" space=5
 
-yabai -m rule --add app="^Preview$" space="docs"
-yabai -m rule --add app="^Microsoft Word$" space="docs"
-yabai -m rule --add app="^Microsoft Excel$" space="docs"
-yabai -m rule --add app="^Numbers$" space="tools"
-yabai -m rule --add app="^Numi$" space="tools"
+yabai -m rule --add app="^Preview$" space=5
+yabai -m rule --add app="^Microsoft Word$" space=5
+yabai -m rule --add app="^Microsoft Excel$" space=5
+yabai -m rule --add app="^Numbers$" space=5
+yabai -m rule --add app="^Numi$" space=5
 
-yabai -m rule --add app="^CGoban$" space="tools"
-yabai -m rule --add app="^GoPanda2$" space="tools"
-yabai -m rule --add app="^Steam$" space="tools"
-yabai -m rule --add app="^Tygem$" space="tools"
+yabai -m rule --add app="^CGoban$" space=5
+yabai -m rule --add app="^GoPanda2$" space=5
+yabai -m rule --add app="^Steam$" space=5
+yabai -m rule --add app="^Tygem$" space=5
 
 # start up sketchybar
 brew services restart felixkratz/formulae/sketchybar

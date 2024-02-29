@@ -1,77 +1,70 @@
 [user]
-	name = Thieu Nguyen
-	email = thieunguyen.tech@gmail.com
+  name = Thieu Nguyen
+  email = thieunguyen.tech@gmail.com
+
 [core]
-	excludesfile = /Users/thieunv/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  excludesfile = /Users/thieunv/.gitignore_global
+  pager = delta
+
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+
 [mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[commit]
-	template = /Users/thieunv/.stCommitMsg
-[cola]
-	spellcheck = false
-	startupmode = list
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+
+[delta]
+  navigate = true
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+
+[color]
+  ui = true
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+
+[color "diff"]
+  meta = 11
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+[push]
+  default = current
+
+[rebase]
+  autoStash = true
+
+[includeIf "gitdir:/Users/thieunv/.local/share/chezmoi"]
+  path = ~/.config/gitconfig/.personal
+
+[includeIf "gitdir:~/projects/oivan/"]
+  path = ~/.config/gitconfig/.oivan
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
 [alias]
   tree = log --oneline --graph --all --no-decorate
-  a = add
-  chu = add --patch
-
-  s = status --short
-
-  c = commit
-  cm = commit -m
+  st = status --short
   ci = commit
-  ca = commit -am
-  cs = commit -s
-  amend = commit --amend
-
   co = checkout
   cb = checkout -b
-
   re = remote
   rv = remote -v
   br = branch
-  bv = branch -v
-
   pl = pull
   pu = push
-
-  reb = rebase
-  rebc = rebase --continue
-  rebs = rebase --skip
-
-  uns = reset HEAD          # removed from stage
-
-  # log
-  l = log --pretty=format:'%C(blue)%h%Creset %C(red)%G?%Creset %C(white)%s %C(yellow)(%cr) %C(cyan)%an%Creset - %C(magenta)%gd'
-  los = log --graph --date=short --decorate
-
-  changes = log --pretty=format:'[%C(blue)%h%Creset] %C(cyan)%an%Creset %C(yellow)%cr: %C(white)%s' --name-status
-
-  changelog = log --pretty=format:' * %C(white)%s'
-  lof = log --graph --pretty=format:'[%C(blue)%h%Creset] -%C(red bold)%d%Creset %C(cyan)%an%Creset %C(yellow)%cr: %C(white)%s' --abbrev-commit --date=relative
-  lol = log --pretty=format:'[%C(blue)%h%Creset] %C(cyan)%an%Creset %C(yellow)%ar%Creset: %C(white)%s' --stat
-
-  d = diff                  # unstaged
-  dc = diff --cached    # staged
-  ds = diff --stat # staged
-  dlast = diff HEAD~1
-
-  g = grep --break --heading --line-number
-[color]
-	ui = true
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-[color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse

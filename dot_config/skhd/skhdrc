@@ -2,7 +2,7 @@
 #
 
 # Reload yabai 
-ctrl + lalt + cmd - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
+ctrl + lalt + cmd - r : bash -c 'yabai --restart-service'
 
 ## Open applications
 alt + shift - b : open /Applications/Brave Browser.app # [b]rowser

@@ -18,3 +18,23 @@ function nv -d "My own nvim"
     unset XDG_CACHE_HOME
     nvim $argv
 end
+
+function mkd -d "Create a directory and set CWD"
+    command mkdir $argv
+    if test $status = 0
+        switch $argv[(count $argv)]
+            case '-*'
+
+            case '*'
+                cd $argv[(count $argv)]
+                return
+        end
+    end
+end
+
+function load_env_vars -d "Load variables in a .env file"
+    for i in (cat $argv)
+        set arr (echo $i |tr = \n)
+        set -gx $arr[1] $arr[2]
+    end
+end

@@ -32,11 +32,11 @@ sketchybar --bar \
 ############# DEFAULTS #############
 sketchybar --default \
 	icon.color=0xff${NORD4:1} \
-	icon.font="$LABEL:Bold:12" \
+	icon.font="$LABEL:Bold:13" \
 	icon.padding_left=$PADDING \
 	icon.padding_right=2 \
 	label.color=0xff${NORD4:1} \
-	label.font="$LABEL:Bold:12" \
+	label.font="$LABEL:Bold:13" \
 	label.padding_left=$PADDING_LABEL \
 	label.padding_right=$PADDING_LABEL \
 	drawing=on \

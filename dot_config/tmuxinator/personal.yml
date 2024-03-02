@@ -1,0 +1,9 @@
+name: Personal
+attach: true
+root: ~/projects/personal
+windows:
+  - dotfiles:
+      - chezmoi cd
+      - nvim
+  - simplebank:
+      - cd golang/simplebank

@@ -62,3 +62,9 @@ alias tk='tmux kill-session -t'         # Kill a named tmux session
 alias t='tmux attach || tmux new-session'   # Attaches tmux to the last session; creates a new session if none exists.
 alias tpi='~/.config/tmux/plugins/tpm/bin/install_plugins' # Installs Tmux plugins
 alias tpu='~/.config/tmux/plugins/tpm/bin/update_plugins all' # Updates all Tmux plugins
+
+# Tmuxinator
+alias tx='tmuxinator'
+
+# Others
+alias unset 'set --erase'

@@ -8,12 +8,13 @@ set -x HOMEBREW_NO_ANALYTICS 1
 set -x GOPATH "$HOME/go"
 set -x STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY "YES"
+set -x ASDF_GOLANG_MOD_VERSION_ENABLED false
 set -gx macOS_Theme (cat $HOME/.color_mode | string collect)
 
 # Add OpenSSL to PATH
-set -gx LDFLAGS "-L/opt/homebrew/Cellar/openssl@3/3.2.1/lib"
-set -gx CPPFLAGS "-I/opt/homebrew/Cellar/openssl@3/3.2.1/include"
-set -gx PKG_CONFIG_PATH "/opt/homebrew/Cellar/openssl@3/3.2.1/lib/pkgconfig"
+set -gx LDFLAGS "-L$(brew --prefix)/opt/openssl@3/lib" #"-L/opt/homebrew/Cellar/openssl@3/3.2.1/lib"
+set -gx CPPFLAGS "-I$(brew --prefix)/opt/openssl@3/include" #"-I/opt/homebrew/Cellar/openssl@3/3.2.1/include"
+set -gx PKG_CONFIG_PATH "$(brew --prefix)/opt/openssl@3/lib/pkgconfig" #"/opt/homebrew/Cellar/openssl@3/3.2.1/lib/pkgconfig"
 
 set -eg ASDF_DIR
 

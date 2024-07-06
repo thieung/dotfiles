@@ -1,6 +1,58 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
 scan_timeout = 1000
 command_timeout = 1000
 right_format = "$cmd_duration"
+
+# Change default symbol for some programming languages
+# Since default symbol is really ugly
+[character]
+success_symbol = "[➜](bold #98c379)" #green
+error_symbol = "[➜](bold #e06c75)" #red
+
+[cmd_duration]
+format = "[ $duration]($style)"
+style = "bold" #white
+
+[directory]
+read_only = " "
+style = "bold #c678dd" #purple
+
+[docker_context]
+symbol = " "
+
+[git_branch]
+symbol = " "
+style = "bold #98c379"  #green
+
+[git_status]
+style = "bold #4c4f55" #gray
+
+[java]
+symbol = " "
+style = "bold #61afef" #blue
+
+[nix_shell]
+symbol = " "
+style = "bold #61afef" #blue
+impure_msg = " [impure](bold #e06c75)"
+pure_msg = " [pure](bold)"
+
+[nodejs]
+symbol = " "
+style = "bold #e5c07b" #yellow
+
+[package]
+style = "bold #e06c75" #red
+
+[python]
+symbol = " "
+style = "bold #e5c07b" #yellow
+
+[ruby]
+symbol = " "
+style = "bold #e06c75" #red
 
 [cmd_duration]
 format = "[ $duration]($style)"
@@ -18,23 +70,21 @@ style = "bold bright-cyan"
 [time]
 time_format = "%I:%M %p"
 
-# Change default symbol for some programming languages
-# Since default symbol is really ugly
-[ruby]
-symbol = " "
-style = "fg:red"
 [golang]
 symbol = " "
 style = "fg:blue"
-[nodejs]
-style = "fg:green"
+
 [git_commit]
 disabled = true
+
 [git_status]
 disabled = true
+
 [battery]
 disabled = true
+
 [gcloud]
 disabled = true
+
 [aws]
 disabled = true

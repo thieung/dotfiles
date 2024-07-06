@@ -1,0 +1,4 @@
+homebrew/cask-fonts
+homebrew/completions
+homebrew/services
+shaunsingh/SFMono-Nerd-Font-Ligaturized

@@ -38,7 +38,6 @@ fish_add_path /opt/homebrew/sbin
 fish_add_path "$HOME/.local/share/nvim/mason/bin"
 fish_add_path $GOPATH/bin
 
-source (brew --prefix asdf)/libexec/asdf.fish
 source $HOME/.config/fish/fzf.fish
 source $HOME/.config/fish/aliases.fish
 source $HOME/.config/fish/functions.fish

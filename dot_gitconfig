@@ -48,7 +48,7 @@
 [includeIf "gitdir:/Users/thieunv/.local/share/chezmoi"]
   path = ~/.config/gitconfig/.personal
 
-[includeIf "gitdir:~/projects/oivan/"]
+[includeIf "gitdir:~/Workspace/Oivan/"]
   path = ~/.config/gitconfig/.oivan
 
 [filter "lfs"]

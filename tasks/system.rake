@@ -1,12 +1,12 @@
-FONT_PATH = File.expand_path('../misc/ui/fonts').gsub(/ /, '\ ')
+FONT_PATH = File.expand_path('misc/ui/fonts').gsub(/ /, '\ ')
 
 namespace :install do
   desc 'Make dotfiles/bin executable'
-  task :chmod do
-    section 'Making dotfiles/bin executable'
-
-    run %( chmod -R +x #{DOTS_FOLDER}/bin/ )
-  end
+  # task :chmod do
+  #   section 'Making dotfiles/bin executable'
+  #
+  #   run %( chmod -R +x #{DOTS_FOLDER}/bin/ )
+  # end
 
   desc 'Install Fish shell'
   task :fish do
@@ -54,7 +54,6 @@ namespace :install do
 
     unless testing?
       run %( mise use --global lua@latest )
-      run %( mise use --global postgres@latest )
       run %( mise install )
     end
   end

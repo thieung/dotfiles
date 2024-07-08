@@ -14,7 +14,7 @@ desc 'Install Everything'
 task :install do
   section 'Installing'
 
-  Rake::Task['tests:setup'].invoke if testing?
+  # Rake::Task['tests:setup'].invoke if testing?
 
   # Packages
   Rake::Task['install:xcode'].invoke
@@ -23,21 +23,16 @@ task :install do
   Rake::Task['install:brew_cask_packages'].invoke
   Rake::Task['install:brew_clean_up'].invoke
   Rake::Task['install:app_store'].invoke unless testing?
-  Rake::Task['install:gems'].invoke unless testing?
-  Rake::Task['install:npm'].invoke unless testing?
-  Rake::Task['install:pip'].invoke unless testing?
-  Rake::Task['install:tmux'].invoke unless testing?
 
   # Files
-  Rake::Task['install:app_config'].invoke
   Rake::Task['install:dotfiles'].invoke
+  Rake::Task['install:app_config'].invoke
 
   # System
   Rake::Task['install:chmod'].invoke
   Rake::Task['install:fish'].invoke
   Rake::Task['install:fonts'].invoke
   Rake::Task['install:hammerspoon'].invoke
-  Rake::Task['install:launch_agents'].invoke
   Rake::Task['install:macos'].invoke
   Rake::Task['install:servers'].invoke
 
@@ -48,7 +43,5 @@ task :install do
   Rake::Task['install:tmux'].invoke
 
   # Apps
-  # Rake::Task['install:neovim'].invoke
   Rake::Task['install:rails'].invoke
-  Rake::Task['install:vim'].invoke
 end

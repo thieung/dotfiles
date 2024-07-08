@@ -54,37 +54,7 @@ style = "bold #e5c07b" #yellow
 symbol = " "
 style = "bold #e06c75" #red
 
-[cmd_duration]
-format = "[ $duration]($style)"
-style = "bold #586068"
-
-[character]
-success_symbol = "[❯](bold #FF69CC)"
-error_symbol = "[❯](bold #FF4566)"
-vicmd_symbol = "[❮](bold #FF69CC)"
-
-[directory]
-truncation_length = 1
-style = "bold bright-cyan"
-
-[time]
-time_format = "%I:%M %p"
-
 [golang]
 symbol = " "
 style = "fg:blue"
 
-[git_commit]
-disabled = true
-
-[git_status]
-disabled = true
-
-[battery]
-disabled = true
-
-[gcloud]
-disabled = true
-
-[aws]
-disabled = true

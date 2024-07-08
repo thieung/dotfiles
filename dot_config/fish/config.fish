@@ -16,8 +16,6 @@ set -gx LDFLAGS "-L$(brew --prefix)/opt/openssl@3/lib" #"-L/opt/homebrew/Cellar/
 set -gx CPPFLAGS "-I$(brew --prefix)/opt/openssl@3/include" #"-I/opt/homebrew/Cellar/openssl@3/3.2.1/include"
 set -gx PKG_CONFIG_PATH "$(brew --prefix)/opt/openssl@3/lib/pkgconfig" #"/opt/homebrew/Cellar/openssl@3/3.2.1/lib/pkgconfig"
 
-set -eg ASDF_DIR
-
 set fish_color_command green --bold
 set fish_color_param cyan
 set fish_pager_color_completion blue --bold
@@ -37,6 +35,7 @@ fish_add_path /opt/homebrew/bin/brew
 fish_add_path /opt/homebrew/sbin
 fish_add_path "$HOME/.local/share/nvim/mason/bin"
 fish_add_path $GOPATH/bin
+fish_add_path /opt/homebrew/bin/bash
 
 source $HOME/.config/fish/fzf.fish
 source $HOME/.config/fish/aliases.fish

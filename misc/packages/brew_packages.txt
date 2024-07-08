@@ -1,4 +1,5 @@
 artillery
+bash
 brew-cask-completion
 cmake
 chezmoi

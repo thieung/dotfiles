@@ -1,9 +1,12 @@
 appcleaner
 audacity
+chatgpt
 cloudflare-warp
 diffmerge
 discord
+figma
 font-fira-code-nerd-font
+font-hack-nerd-font
 font-sf-mono-nerd-font-ligaturized
 git-credential-manager-core
 hammerspoon
@@ -11,6 +14,7 @@ kitty
 imageoptim
 launchcontrol
 microsoft-teams
+miro
 monitorcontrol
 mongodb-compass
 notion

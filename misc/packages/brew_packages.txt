@@ -36,7 +36,6 @@ tmux
 tree-sitter
 universal-ctags
 vivid
-yabai
 yarn
 zoxide
 zsh

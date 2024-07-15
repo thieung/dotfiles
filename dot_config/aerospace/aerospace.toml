@@ -1,0 +1,245 @@
+start-at-login = true
+
+after-startup-command = [
+  'exec-and-forget borders active_color=0xffe78a4e inactive_color=0xff494d64 width=5.0',
+  'exec-and-forget /opt/homebrew/opt/sketchybar/bin/sketchybar',
+  'workspace 1'
+]
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide.html#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 'main' binding mode must be always presented
+
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+[gaps]
+inner.horizontal = [{ monitor."built-in" = 4 }, 8]
+inner.vertical = [{ monitor."built-in" = 4 }, 8]
+outer.left = [{ monitor."built-in" = 4 }, 6]
+outer.bottom = [{ monitor."built-in" = 4 }, 6]
+outer.top = [{ monitor."built-in" = 12 }, 44]
+outer.right = [{ monitor."built-in" = 4 }, 6]
+
+[mode.main.binding]
+# All possible keys:
+# - Letters.        a, b, c, ..., z
+# - Numbers.        0, 1, 2, ..., 9
+# - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
+# - F-keys.         f1, f2, ..., f20
+# - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon, backtick,
+#                   leftSquareBracket, rightSquareBracket, space, enter, esc, backspace, tab
+# - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
+#                   keypadMinus, keypadMultiply, keypadPlus
+# - Arrows.         left, down, up, right
+
+# All possible modifiers: cmd, alt, ctrl, shift
+
+# All possible commands: https://nikitabobko.github.io/AeroSpace/commands
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#layout
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+alt-t = 'exec-and-forget open -n /Applications/kitty.app/' # terminal
+alt-b = 'exec-and-forget open -n /Applications/Safari.app/' # browser
+alt-s = 'exec-and-forget open -n /Applications/Slack.app/' # slack
+
+alt-f = [
+    'layout floating tiling',
+    'mode main',
+] # Toggle between floating and tiling layout
+
+alt-space = 'fullscreen'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#focus
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#move
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#resizes
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+alt-1 = 'workspace Code' # Code workspace
+alt-2 = 'workspace Devtools' # Devtools workspace (figma, postman, ...)
+alt-3 = 'workspace Web' # Web workspace
+alt-4 = 'workspace Social' # Social workspace
+alt-5 = 'workspace Document' # Document workspace   
+alt-0 = 'workspace Misc' # Misc workspace
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+alt-shift-1 = 'move-node-to-workspace Code'
+alt-shift-2 = 'move-node-to-workspace Devtools'
+alt-shift-3 = 'move-node-to-workspace Web'
+alt-shift-4 = 'move-node-to-workspace Social'
+alt-shift-5 = 'move-node-to-workspace Document'
+alt-shift-0 = 'move-node-to-workspace Misc'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+alt-tab = 'workspace-back-and-forth'
+# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+alt-shift-tab = 'move-workspace-to-display next'
+
+alt-shift-c = 'reload-config'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#mode
+alt-shift-semicolon = 'mode service'
+
+# 'service' binding mode declaration.
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+[mode.service.binding]
+r = ['flatten-workspace-tree', 'mode main'] # Reset layout
+backspace = ['close-all-windows-but-current', 'mode main']
+
+[workspace-to-monitor-force-assignment]
+1 = 'secondary'
+
+# default everything to be in workspace 0
+[[on-window-detected]]
+check-further-callbacks = true
+run = 'move-node-to-workspace Misc'
+if.during-aerospace-startup = true
+
+# Floating on current workspace
+[[on-window-detected]]
+if.app-name-regex-substring = 'Finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'OpenVPN'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Spotify'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Bitwarden'
+run = 'layout floating'
+
+
+# Code workspace
+[[on-window-detected]]
+if.app-name-regex-substring = 'kitty'
+run = 'move-node-to-workspace Code'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Code'
+run = 'move-node-to-workspace Code'
+
+# Technical tools workspace
+[[on-window-detected]]
+if.app-name-regex-substring = 'OrbStack'
+run = 'move-node-to-workspace Devtools'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Postman'
+run = 'move-node-to-workspace Devtools'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Postman'
+run = 'move-node-to-workspace Devtools'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Figma'
+run = 'move-node-to-workspace Devtools'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Miro'
+run = 'move-node-to-workspace Devtools'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'TablePlus'
+run = 'move-node-to-workspace Devtools'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'MongoDB'
+run = 'move-node-to-workspace Devtools'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'ChatGPT'
+run = 'move-node-to-workspace Devtools'
+
+# Web workspace
+[[on-window-detected]]
+if.app-name-regex-substring = 'Safari'
+run = 'move-node-to-workspace Web'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Firefox'
+run = 'move-node-to-workspace Web'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Chrome'
+run = 'move-node-to-workspace Web'
+
+# Social workspace
+[[on-window-detected]]
+if.app-name-regex-substring = 'Slack'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Skype'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Zalo'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'zoom.us'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Discord'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Messenger'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Messages'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Microsoft Teams'
+run = 'move-node-to-workspace Social'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Telegram'
+run = 'move-node-to-workspace Social'
+
+# Document workspace
+[[on-window-detected]]
+if.app-name-regex-substring = 'Word'
+run = 'move-node-to-workspace Document'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Excel'
+run = 'move-node-to-workspace Document'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Notion'
+run = 'move-node-to-workspace Document'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Notes'
+run = 'move-node-to-workspace Document'
+
+# Other (misc) workspace (all other apps will go this workspace)

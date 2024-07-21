@@ -1,17 +1,11 @@
 name: EJAR
-root: ~/projects/oivan/ejar/ejar3-development-docker
+root: ~/Workspace/Oivan/Ejar/ejar3-development-docker
 windows:
+  - docker:
+      - orb start && docker compose up --build postgres_server redis_server sidekiq ejar3_sec ejar3_security_deposit e3security_sidekiq ejar3_core -d
   - editor:
       layout: a5f9,256x59,0,0{201x59,0,0,58,54x59,202,0,62}
       panes:
         - cd repos/ejar3-core-application && nvim
-        - cd repos/ejar3-core-application
-  - docker:
-      - docker compose -f compose-base.yml up
-  - server:
-      layout: main-vertical
-      panes:
-        - cd repos/ejar3-core-application
-        - cd repos/ejar3-sec
   - frontend:
-      - cd repos/ejar3-frontend
+      - cd repos/ejar3-frontend && npm start

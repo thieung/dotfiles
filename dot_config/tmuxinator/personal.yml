@@ -1,6 +1,6 @@
 name: Personal
 attach: true
-root: ~/projects/personal
+root: ~/Workspace/Personal
 windows:
   - dotfiles:
       - chezmoi cd

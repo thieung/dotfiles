@@ -1,2 +1,6 @@
 .DS_Store
 README.md
+dot_config/nvim/lua/.luacheckrc
+dot_config/nvim/lua/.neoconf.json
+dot_config/nvim/lua/.stylua.toml
+dot_config/nvim/.linter_configs

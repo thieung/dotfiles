@@ -1,0 +1,4 @@
+dot_config/nvim/.linter_configs
+dot_config/nvim/.luacheckrc
+dot_config/nvim/.neoconf.json
+dot_config/nvim/.stylua.toml

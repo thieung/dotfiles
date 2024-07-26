@@ -8,7 +8,6 @@ return {
   opts = {
     linters_by_ft = {
       lua = { "selene" },
-      sh = { "shellcheck" },
       ansible = { "ansible_lint" },
       sql = { "sqlfluff" },
       markdown = { "markdownlint" },

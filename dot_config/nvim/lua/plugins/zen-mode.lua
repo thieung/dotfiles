@@ -2,16 +2,6 @@
 return {
   "folke/zen-mode.nvim",
   cmd = "ZenMode",
-  dependencies = {
-    "AstroNvim/astrocore",
-    opts = {
-      mappings = {
-        n = {
-          ["<Leader>z"] = { "<Cmd>ZenMode<CR>", desc = "Zen Mode" },
-        },
-      },
-    },
-  },
   opts = {
     window = {
       width = function() return math.min(120, vim.o.columns * 0.75) end,
@@ -50,5 +40,15 @@ return {
       pcall(vim.cmd.IndentBlanklineRefresh)
       vim.diagnostic.config(require("astrocore").config.diagnostics[vim.g.diagnostics_mode])
     end,
+  },
+  specs = {
+    "AstroNvim/astrocore",
+    opts = {
+      mappings = {
+        n = {
+          ["<Leader>z"] = { "<Cmd>ZenMode<CR>", desc = "Zen Mode" },
+        },
+      },
+    },
   },
 }

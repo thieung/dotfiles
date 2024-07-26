@@ -26,13 +26,13 @@ return {
         large_buf = { size = 1024 * 500, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
         autopairs = true, -- enable autopairs at start
         cmp = true, -- enable completion at start
-        diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
+        -- diagnostics_mode = 0, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
         highlighturl = true, -- highlight URLs at start
         notifications = true, -- enable notifications at start
       },
       -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
       diagnostics = {
-        virtual_text = true,
+        virtual_text = { severity = { min = vim.diagnostic.severity.WARN } },
         underline = true,
         update_in_insert = false,
       },
@@ -48,6 +48,8 @@ return {
           ["docker-compose.yaml"] = "yaml.docker-compose",
         },
         pattern = {
+          ["%.env%.[%w_.-]+"] = "sh",
+          [".*/kitty/.+%.conf"] = "bash",
           ["/tmp/neomutt.*"] = "markdown",
         },
       },
@@ -162,9 +164,6 @@ return {
           -- better increment/decrement
           ["+"] = { "g<C-a>", desc = "Increment number" },
           ["-"] = { "g<C-x>", desc = "Descrement number" },
-          -- line text-objects
-          ["iL"] = { ":<C-u>normal! $v^<CR>", desc = "Inside line text object" },
-          ["aL"] = { ":<C-u>normal! $v0<CR>", desc = "Around line text object" },
         },
       },
     }) --[[@as AstroCoreOpts]]

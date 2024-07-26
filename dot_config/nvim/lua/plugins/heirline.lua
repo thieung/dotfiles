@@ -1,22 +1,6 @@
 ---@type LazySpec
 return {
   "rebelot/heirline.nvim",
-  dependencies = {
-    "AstroNvim/astroui",
-    ---@type AstroUIOpts
-    opts = {
-      icons = {
-        Clock = "", -- add icon for clock
-      },
-      status = {
-        attributes = { mode = { bold = true } },
-        separators = {
-          left = { "", " " },
-          right = { " ", "" },
-        },
-      },
-    },
-  },
   opts = function(_, opts)
     local status = require "astroui.status"
     -- add time to mode indicator
@@ -69,4 +53,22 @@ return {
       },
     }
   end,
+  specs = {
+    {
+      "AstroNvim/astroui",
+      ---@type AstroUIOpts
+      opts = {
+        icons = {
+          Clock = "", -- add icon for clock
+        },
+        status = {
+          attributes = { mode = { bold = true } },
+          separators = {
+            left = { "", " " },
+            right = { " ", "" },
+          },
+        },
+      },
+    },
+  },
 }

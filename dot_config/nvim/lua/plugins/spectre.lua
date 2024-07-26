@@ -3,7 +3,19 @@ local prefix = "<Leader>s"
 return {
   "nvim-pack/nvim-spectre",
   cmd = "Spectre",
-  dependencies = {
+  opts = {
+    open_cmd = "new",
+    mapping = {
+      send_to_qf = { map = "<Leader>sq" },
+      replace_cmd = { map = "<Leader>sc" },
+      show_option_menu = { map = "<Leader>so" },
+      run_current_replace = { map = "<Leader>sC" },
+      run_replace = { map = "<Leader>sR" },
+      change_view_mode = { map = "<Leader>sv" },
+      resume_last_search = { map = "<Leader>sl" },
+    },
+  },
+  specs = {
     "AstroNvim/astrocore",
     opts = {
       mappings = {
@@ -20,18 +32,6 @@ return {
           [prefix] = { function() require("spectre").open_visual() end, desc = "Spectre" },
         },
       },
-    },
-  },
-  opts = {
-    open_cmd = "new",
-    mapping = {
-      send_to_qf = { map = "<Leader>sq" },
-      replace_cmd = { map = "<Leader>sc" },
-      show_option_menu = { map = "<Leader>so" },
-      run_current_replace = { map = "<Leader>sC" },
-      run_replace = { map = "<Leader>sR" },
-      change_view_mode = { map = "<Leader>sv" },
-      resume_last_search = { map = "<Leader>sl" },
     },
   },
 }

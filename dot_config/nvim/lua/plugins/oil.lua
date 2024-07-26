@@ -6,13 +6,26 @@ return {
     if vim.fn.argc() == 1 then
       local arg = vim.fn.argv(0)
       ---@cast arg string
-      local stat = vim.loop.fs_stat(arg)
+      local stat = (vim.uv or vim.loop).fs_stat(arg)
       local adapter = string.match(arg, "^([%l-]*)://")
       if (stat and stat.type == "directory") or adapter == "oil-ssh" then require "oil" end
     end
   end,
-  dependencies = {
-    { "nvim-neo-tree/neo-tree.nvim", opts = { filesystem = { hijack_netrw_behavior = "disabled" } } },
+  opts = function()
+    local get_icon = require("astroui").get_icon
+    return {
+      columns = {
+        { "icon", default_file = get_icon "DefaultFile", directory = get_icon "FolderClosed" },
+      },
+      skip_confirm_for_simple_edits = true,
+      watch_for_changes = true,
+      keymaps = {
+        ["<Tab>"] = "actions.close",
+      },
+    }
+  end,
+  specs = {
+    { "nvim-neo-tree/neo-tree.nvim", optional = true, opts = { filesystem = { hijack_netrw_behavior = "disabled" } } },
     {
       "AstroNvim/astrocore",
       opts = {
@@ -65,36 +78,24 @@ return {
         },
       },
     },
+    { "AstroNvim/astroui", opts = { status = { winbar = { enabled = { filetype = { "^oil$" } } } } } },
     {
       "rebelot/heirline.nvim",
+      optional = true,
       opts = function(_, opts)
-        local status = require "astroui.status"
-        local is_oil = function(bufnr) return status.condition.buffer_matches({ filetype = "^oil$" }, bufnr) end
-        local disable_winbar_cb = opts.opts.disable_winbar_cb
-        opts.opts.disable_winbar_cb = function(args)
-          if is_oil(args.buf) then return false end
-          return disable_winbar_cb(args)
-        end
-
         if opts.winbar then
+          local status = require "astroui.status"
           table.insert(opts.winbar, 1, {
-            condition = function(self) return is_oil(self.bufnr) end,
+            condition = function(self) return status.condition.buffer_matches({ filetype = "^oil$" }, self.bufnr) end,
             status.component.separated_path {
               padding = { left = 2 },
               max_depth = false,
               suffix = false,
-              path_func = function() return require("oil").get_current_dir() end,
+              path_func = function(self) return require("oil").get_current_dir(self.bufnr) end,
             },
           })
         end
       end,
-    },
-  },
-  opts = {
-    skip_confirm_for_simple_edits = true,
-    experimental_watch_for_changes = true,
-    keymaps = {
-      ["<Tab>"] = "actions.close",
     },
   },
 }

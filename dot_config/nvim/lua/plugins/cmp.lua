@@ -18,6 +18,19 @@ return {
       { name = "buffer", priority = 250, group_index = 2 },
     }
 
+    local format = opts.formatting.format
+    opts.formatting.format = function(entry, vim_item)
+      vim_item = format(entry, vim_item)
+
+      -- truncate label
+      local max_width = math.floor(0.25 * vim.o.columns)
+      local label = vim_item.abbr
+      local truncated_label = vim.fn.strcharpart(label, 0, max_width)
+      if truncated_label ~= label then vim_item.abbr = truncated_label .. "…" end
+
+      return vim_item
+    end
+
     if not opts.sorting then opts.sorting = {} end
     local compare = require "cmp.config.compare"
     opts.sorting.comparators = {

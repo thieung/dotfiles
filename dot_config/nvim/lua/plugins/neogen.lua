@@ -3,7 +3,16 @@ local prefix = "<Leader>a"
 return {
   "danymat/neogen",
   cmd = "Neogen",
-  dependencies = {
+  opts = {
+    snippet_engine = "luasnip",
+    languages = {
+      lua = { template = { annotation_convention = "emmylua" } },
+      typescript = { template = { annotation_convention = "tsdoc" } },
+      typescriptreact = { template = { annotation_convention = "tsdoc" } },
+      ruby = { template = { annotation_convention = "yard" } },
+    },
+  },
+  specs = {
     "AstroNvim/astrocore",
     opts = {
       mappings = {
@@ -16,15 +25,6 @@ return {
           [prefix .. "F"] = { function() require("neogen").generate { type = "file" } end, desc = "File" },
         },
       },
-    },
-  },
-  opts = {
-    snippet_engine = "luasnip",
-    languages = {
-      lua = { template = { annotation_convention = "emmylua" } },
-      typescript = { template = { annotation_convention = "tsdoc" } },
-      typescriptreact = { template = { annotation_convention = "tsdoc" } },
-      ruby = { template = { annotation_convention = "yard" } },
     },
   },
 }

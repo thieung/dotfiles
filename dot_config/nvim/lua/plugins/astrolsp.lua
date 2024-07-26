@@ -58,7 +58,7 @@ return {
         },
       },
       solargraph = {
-        cmd = { os.getenv "HOME" .. "/.asdf/shims/solargraph", "stdio" },
+        cmd = { io.popen("which solargraph"):read("*a"):gsub("%s+$", ""), "stdio" },
         root_dir = function(fname)
           return require("lspconfig").util.root_pattern("Gemfile", ".git")(fname) or vim.fn.getcwd()
         end,

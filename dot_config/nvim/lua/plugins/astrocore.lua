@@ -26,9 +26,26 @@ return {
         large_buf = { size = 1024 * 500, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
         autopairs = true, -- enable autopairs at start
         cmp = true, -- enable completion at start
-        -- diagnostics_mode = 0, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
+        diagnostics_mode = 0, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
         highlighturl = true, -- highlight URLs at start
         notifications = true, -- enable notifications at start
+      },
+      sync_term_background = {
+        {
+          event = { "UIEnter", "User" },
+          desc = "Set background of terminal automatically",
+          callback = function(args)
+            if args.event == "UIEnter" or args.match == "AstroColorScheme" then
+              local bg = vim.tbl_get(require("astroui").get_hlgroup "Normal", "bg")
+              if bg then io.write(string.format("\027]11;#%06x\027\\", bg)) end
+            end
+          end,
+        },
+        {
+          event = "UILeave",
+          desc = "Restore terminal background when leaving",
+          callback = function() io.write "\027]111\027\\" end,
+        },
       },
       -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
       diagnostics = {

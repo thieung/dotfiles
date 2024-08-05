@@ -21,7 +21,6 @@ return {
     setup = {
       task_list = {
         strategy = "toggleterm",
-        direction = "bottom",
         bindings = {
           ["<C-l>"] = false,
           ["<C-h>"] = false,

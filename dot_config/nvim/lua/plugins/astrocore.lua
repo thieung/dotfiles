@@ -174,7 +174,6 @@ return {
         },
         t = {
           ["<C-BS>"] = { "<C-\\><C-n>", desc = "Terminal normal mode" },
-          ["<Esc><Esc>"] = { "<C-\\><C-n>:q<CR>", desc = "Terminal quit" },
         },
         x = {
           ["<C-S>"] = false,

@@ -2,10 +2,12 @@
 return {
   "stevearc/conform.nvim",
   event = "User AstroFile",
+  version = vim.fn.has "nvim-0.10" ~= 1 and "7",
   cmd = "ConformInfo",
   dependencies = { "williamboman/mason.nvim" },
   ---@param opts conform.setupOpts
   opts = function(_, opts)
+    local buf_utils = require "astrocore.buffer"
     opts.default_format_opts = { lsp_format = "fallback" }
 
     opts.format_on_save = function(bufnr)
@@ -16,7 +18,12 @@ return {
     end
 
     opts.formatters_by_ft = {
-      ["*"] = function(bufnr) return require("astrocore.buffer").is_valid(bufnr) and { "injected" } or {} end,
+      ["*"] = function(bufnr)
+        return buf_utils.is_valid(bufnr)
+            and buf_utils.has_filetype(bufnr)
+            and { "trim_whitespace", "trim_newlines", "squeeze_blanks" }
+          or {}
+      end,
       toml = { "taplo" },
       lua = { "stylua" },
       sh = { "shfmt" },

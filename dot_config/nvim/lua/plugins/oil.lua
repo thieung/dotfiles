@@ -12,15 +12,74 @@ return {
     end
   end,
   opts = function()
-    local get_icon = require("astroui").get_icon
+    local get_icon, cmd = require("astroui").get_icon, require("astrocore").cmd
+
+    -- git status cache
+    local git_avail = vim.fn.executable "git" == 1
+    local function parse_output(commands)
+      local result, ret = cmd(commands, false), {}
+      if result then
+        for line in vim.gsplit(result, "\n", { plain = true, trimempty = true }) do
+          ret[line:gsub("/$", "")] = true
+        end
+      end
+      return ret
+    end
+    local git_status_index = function(self, key)
+      local ignore = { "git", "-C", key, "ls-files", "--ignored", "--exclude-standard", "--others", "--directory" }
+      local tracked = { "git", "-C", key, "ls-tree", "HEAD", "--name-only" }
+      local ret = { ignored = parse_output(ignore), tracked = parse_output(tracked) }
+      rawset(self, key, ret)
+      return ret
+    end
+    local new_git_status = function() return setmetatable({}, { __index = git_status_index }) end
+    local git_status = new_git_status()
+    -- clear git status cache on refresh
+    local refresh = require("oil.actions").refresh
+    local orig_refresh = refresh.callback
+    refresh.callback = function(...)
+      git_status = new_git_status()
+      orig_refresh(...)
+    end
+
+    local columns = {
+      icon = { "icon", default_file = get_icon "DefaultFile", directory = get_icon "FolderClosed" },
+      permissions = { "permissions", highlight = "Type" },
+      size = { "size", highlight = "String" },
+      mtime = { "mtime", highlight = "Function" },
+    }
+    local simple, detailed = { columns.icon }, { columns.permissions, columns.size, columns.mtime, columns.icon }
+
+    ---@type oil.setupOpts
     return {
-      columns = {
-        { "icon", default_file = get_icon "DefaultFile", directory = get_icon "FolderClosed" },
-      },
+      columns = simple,
       skip_confirm_for_simple_edits = true,
+      prompt_save_on_select_new_entry = false,
       watch_for_changes = true,
       keymaps = {
+        gd = {
+          desc = "Toggle detailed file view",
+          callback = function() require("oil").set_columns(#require("oil.config").columns == 1 and detailed or simple) end,
+        },
+        R = "actions.refresh",
         ["<Tab>"] = "actions.close",
+      },
+      lsp_file_methods = { autosave_changes = "unmodified" },
+      view_options = {
+        is_hidden_file = function(name, bufnr)
+          local dir = require("oil").get_current_dir(bufnr)
+          local is_hidden = vim.startswith(name, ".") and name ~= ".."
+          -- if no git or no local directory (e.g. for ssh connections), just hide dotfiles
+          if not git_avail or not dir then return is_hidden end
+          -- dotfiles are considered hidden unless tracked
+          if is_hidden then
+            return not git_status[dir].tracked[name]
+          else
+            -- Check if file is gitignored
+            return git_status[dir].ignored[name]
+          end
+        end,
+        is_always_hidden = function(name) return name == ".." end,
       },
     }
   end,

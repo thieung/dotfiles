@@ -27,9 +27,6 @@ alias gst='git status'
 alias gc='git commit -m'
 alias gnb='git checkout -b'
 alias gpu='git push origin master'
-alias gdm='git checkout -b dev-master'
-alias nah='git reset --hard && git clean -df'
-alias gfix='git rm -r --cached . && git add .'
 
 # Mac
 alias code='open $argv -a "Visual Studio Code"'
@@ -65,6 +62,10 @@ alias tpu='~/.config/tmux/plugins/tpm/bin/update_plugins all' # Updates all Tmux
 
 # Tmuxinator
 alias tx='tmuxinator'
+
+# Ruby/Rails
+alias rdbsetup='rails db:environment:set RAILS_ENV=test & RAILS_ENV=test bundle exec rake db:setup'
+alias rschemaload='rails db:environment:set RAILS_ENV=test & RAILS_ENV=test bundle exec rake db:schema:load'
 
 # Others
 alias unset 'set --erase'

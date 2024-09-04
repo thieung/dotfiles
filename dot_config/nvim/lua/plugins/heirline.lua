@@ -60,6 +60,7 @@ return {
       opts = {
         icons = {
           Clock = "", -- add icon for clock
+          Notebook = "", -- add icon for notebook
         },
         status = {
           attributes = { mode = { bold = true } },

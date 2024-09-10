@@ -77,20 +77,15 @@ return {
           },
         },
       },
-      solargraph = {
-        cmd = { io.popen("which solargraph"):read("*a"):gsub("%s+$", ""), "stdio" },
+      ruby_lsp = {
         root_dir = function(fname)
           return require("lspconfig").util.root_pattern("Gemfile", ".git")(fname) or vim.fn.getcwd()
         end,
         settings = {
-          solargraph = {
-            autoformat = false,
-            completion = true,
-            diagnostics = false,
-            folding = true,
-            references = true,
-            rename = true,
-            symbols = true,
+          init_options = {
+            enabledFeatures = {
+              formatting = false,
+            },
           },
         },
       },

@@ -15,7 +15,6 @@ return {
       "tailwindcss-language-server",
       "vtsls",
       "yaml-language-server",
-      "solargraph",
       "dockerfile-language-server",
       "bash-language-server",
 

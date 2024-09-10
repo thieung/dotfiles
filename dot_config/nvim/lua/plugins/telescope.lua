@@ -1,6 +1,20 @@
 ---@type LazySpec
 return {
   "nvim-telescope/telescope.nvim",
+  specs = {
+    {
+      "AstroNvim/astrocore",
+      opts = function(_, opts)
+        local maps = opts.mappings
+        maps.n["<Leader>ff"][1] = function()
+          require("telescope.builtin").find_files {
+            -- search all files if in git root
+            hidden = vim.tbl_get((vim.uv or vim.loop).fs_stat ".git" or {}, "type") == "directory",
+          }
+        end
+      end,
+    },
+  },
   opts = {
     defaults = {
       results_title = "",

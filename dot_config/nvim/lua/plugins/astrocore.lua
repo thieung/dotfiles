@@ -152,6 +152,7 @@ return {
           [tabpre .. "<tab>"] = { "<cmd>tabnew<cr>", desc = "New Tab" },
           [tabpre .. "]"] = { "<cmd>tabnext<cr>", desc = "Next Tab" },
           [tabpre .. "["] = { "<cmd>tabprevious<cr>", desc = "Previous Tab" },
+          [tabpre .. "x"] = { "<cmd>tabclose<cr>", desc = "Close Current Tab" },
 
           -- mappings seen under group name "Buffer"
           ["<Leader>bD"] = {

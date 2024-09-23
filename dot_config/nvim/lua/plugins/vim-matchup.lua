@@ -7,6 +7,7 @@ return {
       opts = {
         options = {
           g = {
+            matchup_matchparen_pumvisible = 0,
             matchup_matchparen_offscreen = { method = "popup", fullwidth = 1, highlight = "WinBar", syntax_hl = 1 },
           },
         },

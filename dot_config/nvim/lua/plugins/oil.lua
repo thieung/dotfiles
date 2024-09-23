@@ -12,12 +12,12 @@ return {
     end
   end,
   opts = function()
-    local get_icon, cmd = require("astroui").get_icon, require("astrocore").cmd
+    local astrocore, get_icon = require "astrocore", require("astroui").get_icon
 
     -- git status cache
     local git_avail = vim.fn.executable "git" == 1
     local function parse_output(commands)
-      local result, ret = cmd(commands, false), {}
+      local result, ret = astrocore.cmd(commands, false), {}
       if result then
         for line in vim.gsplit(result, "\n", { plain = true, trimempty = true }) do
           ret[line:gsub("/$", "")] = true
@@ -36,11 +36,10 @@ return {
     local git_status = new_git_status()
     -- clear git status cache on refresh
     local refresh = require("oil.actions").refresh
-    local orig_refresh = refresh.callback
-    refresh.callback = function(...)
+    refresh.callback = astrocore.patch_func(refresh.callback, function(orig, ...)
       git_status = new_git_status()
-      orig_refresh(...)
-    end
+      orig(...)
+    end)
 
     local columns = {
       icon = { "icon", default_file = get_icon "DefaultFile", directory = get_icon "FolderClosed" },

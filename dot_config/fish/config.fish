@@ -7,9 +7,11 @@ set -x DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -x HOMEBREW_NO_ANALYTICS 1
 set -x GOPATH "$HOME/go"
 set -x STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
-set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY "YES"
+set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 set -x ASDF_GOLANG_MOD_VERSION_ENABLED false
 set -gx macOS_Theme (cat $HOME/.color_mode | string collect)
+set -gx PATH /usr/local/bin /opt/homebrew/bin $PATH
+set -gx PATH /opt/homebrew/bin/rg $PATH
 
 # Add OpenSSL to PATH
 set -gx LDFLAGS "-L$(brew --prefix)/opt/openssl@3/lib" #"-L/opt/homebrew/Cellar/openssl@3/3.2.1/lib"
@@ -54,5 +56,6 @@ if status is-interactive
     starship init fish | source
     mise activate fish | source
 else
+    starship init fish | source
     mise activate fish --shims | source
 end

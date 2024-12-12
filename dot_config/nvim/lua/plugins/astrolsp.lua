@@ -77,18 +77,23 @@ return {
           },
         },
       },
-      ruby_lsp = {
-        root_dir = function(fname)
-          return require("lspconfig").util.root_pattern("Gemfile", ".git")(fname) or vim.fn.getcwd()
-        end,
-        settings = {
-          init_options = {
-            enabledFeatures = {
-              formatting = false,
-            },
-          },
-        },
-      },
+      -- ruby_lsp = {
+      --   root_dir = function(fname)
+      --     return require("lspconfig").util.root_pattern("Gemfile", ".git")(fname) or vim.fn.getcwd()
+      --   end,
+      --   settings = {
+      --     ruby = {
+      --       diagnostics = false,
+      --       formatting = false,
+      --     },
+      --     init_options = {
+      --       enabledFeatures = {
+      --         formatting = false,
+      --         diagnostics = false,
+      --       },
+      --     },
+      --   },
+      -- },
     },
     -- mappings to be set up on attaching of a language server
     mappings = {

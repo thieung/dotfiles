@@ -79,7 +79,7 @@ alt-1 = 'workspace Code' # Code workspace
 alt-2 = 'workspace Devtools' # Devtools workspace (figma, postman, ...)
 alt-3 = 'workspace Web' # Web workspace
 alt-4 = 'workspace Social' # Social workspace
-alt-5 = 'workspace Document' # Document workspace   
+alt-5 = 'workspace Document' # Document workspace
 alt-0 = 'workspace Misc' # Misc workspace
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -132,10 +132,13 @@ run = 'layout floating'
 if.app-name-regex-substring = 'Bitwarden'
 run = 'layout floating'
 
-
 # Code workspace
 [[on-window-detected]]
 if.app-name-regex-substring = 'kitty'
+run = 'move-node-to-workspace Code'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'WezTerm'
 run = 'move-node-to-workspace Code'
 
 [[on-window-detected]]

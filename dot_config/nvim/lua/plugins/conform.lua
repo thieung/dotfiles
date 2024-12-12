@@ -27,8 +27,9 @@ return {
       toml = { "taplo" },
       lua = { "stylua" },
       sh = { "shfmt" },
+      fish = { "fish_indent" },
       sql = { "sqlfluff" },
-      ruby = { "rubocop" },
+      -- ruby = { "rubocop" },
       ["_"] = function(bufnr)
         return require("astrocore.buffer").is_valid(bufnr) and { "trim_whitespace", "trim_newlines", "squeeze_blanks" }
           or {}

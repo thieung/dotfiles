@@ -6,6 +6,6 @@ windows:
   - editor:
       layout: a5f9,256x59,0,0{201x59,0,0,58,54x59,202,0,62}
       panes:
-        - cd repos/ejar3-core-application && nvim
+        - cd repos/ejar3-core-application && lv
   - frontend:
-      - cd repos/ejar3-frontend && npm start
+      - cd repos/ejar3-frontend && NODE_OPTIONS="--max-old-space-size=8192" npm start

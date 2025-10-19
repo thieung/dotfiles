@@ -122,6 +122,34 @@ stow macos            # Apply
   Any AI tool attribution or signature
 - Create clean, professional commit messages without AI references. Use conventional commit format.
 
+## Git Operations
+
+### Git Manager Agent
+For all git staging, committing, and pushing operations, use the `git-manager` agent located in `.claude/agents/git-manager.md`. This agent provides:
+
+- **Security-first approach**: Scans for confidential files before operations
+- **Professional commit standards**: Uses conventional commit format without AI attribution
+- **Safe staging process**: Only stages appropriate files, excludes sensitive data
+- **Quality checks**: Verifies operations and provides clear feedback
+
+**Usage Examples:**
+```bash
+# When you need to commit and push changes
+"I've finished implementing the user authentication feature. Can you commit and push these changes?"
+
+# For bug fixes
+"Fixed the database connection timeout issue. Please commit this."
+
+# For documentation updates
+"Updated the README with installation instructions. Please commit these docs."
+```
+
+The agent automatically handles:
+- Scanning for `.env` files and sensitive data
+- Using conventional commit format (`feat:`, `fix:`, `docs:`, etc.)
+- Professional commit messages without AI references
+- Safe pushing to current branch
+
 ## Don't Touch
 - `.gitignore` - Carefully managed ignore patterns
 - Home directory structure - Should only symlink, never modify directly

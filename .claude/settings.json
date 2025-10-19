@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allowedTools": [
+      "Read",
+      "Write",
+      "Bash(stow *)",
+      "Bash(git *)",
+      "Bash(./install.sh *)"
+    ],
+    "deny": [
+      "Read(.env*)",
+      "Read(./secrets/**)",
+      "Write(~/.bashrc)",
+      "Write(~/.zshrc)"
+    ]
+  },
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
+  }
+}

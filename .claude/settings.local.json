@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./install.sh:*)",
+      "Bash(ls:*)",
+      "Bash(chmod:*)",
+      "Bash(brew install:*)",
+      "Bash(stow:*)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": []
+  }
+}

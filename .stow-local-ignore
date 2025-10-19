@@ -1,0 +1,33 @@
+# Stow ignore patterns
+README.md
+.git
+.gitignore
+.gitmodules
+.DS_Store
+install.sh
+LICENSE
+docs/
+*.png
+*.jpg
+*.jpeg
+*.gif
+themes
+node_modules
+.config/cspell.json
+.config/cspell-tool.txt
+# Claude runtime files
+.claude/projects
+.claude/shell-snapshots
+.claude/statsig
+.claude/todos
+.claude/logs
+.claude/bash-command-log.txt
+.claude/.superclaude-metadata.json
+biome.json
+bun.lockb
+package.json
+tsconfig.json
+cli.sh
+cli.ts
+example
+tests

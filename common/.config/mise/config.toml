@@ -1,0 +1,31 @@
+# Mise configuration file
+# Managed by stow - see https://mise.jdx.dev/configuration.html
+
+[tools]
+# Development languages
+node = "22.20.0"
+python = "latest"
+go = "latest"
+rust = "latest"
+deno = "latest"
+bun = "latest"
+uv = "latest"
+
+# CLI tools
+ripgrep = "latest"
+fd = "latest"
+bat = "latest"
+fzf = "latest"
+jq = "latest"
+delta = "latest"
+lazygit = "latest"
+gh = "latest"
+neovim = "nightly"
+zoxide = "latest"
+shellcheck = "latest"
+yarn = "1"
+
+[settings]
+# Auto-install missing tools
+auto_install = true
+idiomatic_version_file_enable_tools = ["node"]

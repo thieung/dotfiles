@@ -37,11 +37,8 @@ detect_os() {
         Darwin*)
             echo "macos"
             ;;
-        Linux*)
-            echo "linux"
-            ;;
         *)
-          log_error "Unsupported operating system: $(uname -s)"
+          log_error "Unsupported operating system: $(uname -s). This script only supports macOS."
           exit 1
             ;;
     esac
@@ -62,30 +59,15 @@ install_mise() {
     # Add mise to PATH for current session
     export PATH="$HOME/.local/bin:$PATH"
     
-    # Add to shell configuration
-    local os=$(detect_os)
-    case "$os" in
-        macos)
-            if [[ -f "$HOME/.zshrc" ]]; then
-                echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
-                log_info "Added mise activation to ~/.zshrc"
-            fi
-            if [[ -f "$HOME/.config/fish/config.fish" ]]; then
-                echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
-                log_info "Added mise activation to fish config"
-            fi
-            ;;
-        linux)
-            if [[ -f "$HOME/.bashrc" ]]; then
-                echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-                log_info "Added mise activation to ~/.bashrc"
-            fi
-            if [[ -f "$HOME/.config/fish/config.fish" ]]; then
-                echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
-                log_info "Added mise activation to fish config"
-            fi
-            ;;
-    esac
+    # Add to shell configuration (macOS only)
+    if [[ -f "$HOME/.zshrc" ]]; then
+        echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+        log_info "Added mise activation to ~/.zshrc"
+    fi
+    if [[ -f "$HOME/.config/fish/config.fish" ]]; then
+        echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
+        log_info "Added mise activation to fish config"
+    fi
     
     log_success "mise installed successfully"
 }
@@ -150,47 +132,26 @@ install_dev_tools() {
     log_success "Development tools installed globally"
 }
 
-# Install system packages
+# Install system packages (macOS only)
 install_system_packages() {
-    local os="$1"
+    log_info "Installing system packages for macOS..."
     
-    log_info "Installing system packages for $os..."
+    if ! command_exists brew; then
+        log_error "Homebrew not found. Please install Homebrew first: https://brew.sh/"
+        return 1
+    fi
     
-    case "$os" in
-        macos)
-            if ! command_exists brew; then
-                log_error "Homebrew not found. Please install Homebrew first: https://brew.sh/"
-                return 1
-            fi
-            
-            # Install essential tools
-            brew install git stow tmux fish
-            brew install --cask ghostty
-            
-            # Install fonts (skip if already available)
-            if ! brew list --cask font-jetbrains-mono-nerd-font >/dev/null 2>&1; then
-                log_info "Installing JetBrains Mono Nerd Font..."
-                brew install --cask font-jetbrains-mono-nerd-font || log_warning "Failed to install font (may need manual installation)"
-            else
-                log_info "JetBrains Mono Nerd Font already installed"
-            fi
-            ;;
-        linux)
-            if command_exists apt; then
-                sudo apt update
-                sudo apt install -y git stow tmux fish curl build-essential
-            elif command_exists yay; then
-                yay -S --noconfirm git stow tmux fish curl base-devel
-            elif command_exists pacman; then
-                sudo pacman -S --noconfirm git stow tmux fish curl base-devel
-            elif command_exists dnf; then
-                sudo dnf install -y git stow tmux fish curl gcc gcc-c++ make
-            else
-                log_warning "Package manager not found. Please install git, stow, tmux, and fish manually."
-                return 1
-            fi
-            ;;
-    esac
+    # Install essential tools
+    brew install git stow tmux fish
+    brew install --cask ghostty
+    
+    # Install fonts (skip if already available)
+    if ! brew list --cask font-jetbrains-mono-nerd-font >/dev/null 2>&1; then
+        log_info "Installing JetBrains Mono Nerd Font..."
+        brew install --cask font-jetbrains-mono-nerd-font || log_warning "Failed to install font (may need manual installation)"
+    else
+        log_info "JetBrains Mono Nerd Font already installed"
+    fi
     
     log_success "System packages installed successfully"
 }
@@ -204,7 +165,7 @@ main() {
     log_info "Installing tools and dependencies..."
     
     # Install system packages first
-    install_system_packages "$os"
+    install_system_packages
     
     # Install mise
     install_mise
@@ -213,7 +174,7 @@ main() {
     install_dev_tools
     
     log_success "All tools installed successfully!"
-    log_info "Please restart your shell or run: source ~/.zshrc (or ~/.bashrc)"
+    log_info "Please restart your shell or run: source ~/.zshrc"
     log_info "Then run 'mise doctor' to verify installation"
 }
 

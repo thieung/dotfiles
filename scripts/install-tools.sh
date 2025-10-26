@@ -75,7 +75,8 @@ install_mise() {
 # Install development tools using mise
 install_dev_tools() {
     log_info "Installing development tools with mise..."
-    
+    log_info "This includes: languages (node, python, go, rust, etc.), CLI tools (ripgrep, fzf, etc.), and Claude Code"
+
     # Change to dotfiles directory to find mise config
     cd "$(dirname "$0")/.."
     

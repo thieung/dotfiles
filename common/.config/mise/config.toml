@@ -24,6 +24,7 @@ neovim = "nightly"
 zoxide = "latest"
 shellcheck = "latest"
 yarn = "1"
+"npm:@anthropic-ai/claude-code" = "latest"
 
 [settings]
 # Auto-install missing tools
